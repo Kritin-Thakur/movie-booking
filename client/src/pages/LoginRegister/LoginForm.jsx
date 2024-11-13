@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './styles.css';
 import { FaUser, FaLock } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login({ setIsLoggedIn }) {
     // State to store the form data
     const [formData, setFormData] = useState({
         username: '',
@@ -11,6 +12,9 @@ function Login() {
 
     // State to handle any errors
     const [error, setError] = useState('');
+
+    // Use navigate hook for redirecting
+    const navigate = useNavigate();
 
     // Handle input changes and update form data
     const handleInputChange = (e) => {
@@ -47,17 +51,19 @@ function Login() {
             // Parse the response data
             const data = await response.json();
             
-            if (response.status === 200) {
+            if (response.status === 200 && data.accessToken) {
                 // Successful login
                 console.log('Login successful:', data.accessToken);
                 sessionStorage.setItem("accessToken", data.accessToken);
-                // You can redirect or show a success message here
-                // For example, you can use React Router to redirect to a dashboard:
-                // history.push('/dashboard');
+                
+                // Update the isLoggedIn state and navigate to the profile page
+                setIsLoggedIn(true);  // Update the navbar state
+                navigate('/profile');
             } else {
-                // Handle errors returned from the server
+                // If login failed (invalid username/password)
                 console.error('Login failed:', data);
                 setError(data.error || 'Login failed. Please try again.');
+                // Do not redirect, and do not write anything to sessionStorage
             }
         } catch (error) {
             console.error('Error:', error);

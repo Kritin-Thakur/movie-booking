@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Users } = require('../models'); // Users is the model of the Users database
+const { User } = require('../models'); // Users is the model of the Users database
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
 // Route to get profile information
@@ -10,7 +10,7 @@ router.get("/", validateToken, async (req, res) => {
         const { username } = req.user;
 
         // Fetch the user details from the database
-        const user = await Users.findOne({
+        const user = await User.findOne({
             where: { UserName: username },
             attributes: ['UserName', 'Name', 'Email', 'Phone'] // Only fetch specific columns
         });

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './styles.css';
 
 function Registration() {
@@ -14,6 +16,10 @@ function Registration() {
 
     // State to handle validation errors
     const [errors, setErrors] = useState('');
+
+    // State to handle success confirmation
+    const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();  // Use useNavigate for redirection
 
     // Handle form input changes
     const handleInputChange = (e) => {
@@ -66,15 +72,22 @@ function Registration() {
             if (response.ok) {
                 // Handle successful registration (e.g., redirect or display success message)
                 console.log('User registered successfully:', data);
-                setErrors('');
+                setSuccessMessage('Registration successful! Please log in.');
+                setErrors('');  // Clear any previous errors
+                setTimeout(() => {
+                    // After 3 seconds, redirect to login page
+                    navigate('/login');
+                }, 1500);
             } else {
                 // Handle error response from the server
                 console.error('Error during registration:', data);
                 setErrors(data.error || 'Registration failed. Please try again.');
+                setSuccessMessage('');  // Clear success message if registration fails
             }
         } catch (error) {
             console.error('Error:', error);
             setErrors('An error occurred. Please try again later.');
+            setSuccessMessage('');  // Clear success message if there is an error
         }
     };
 
@@ -85,6 +98,7 @@ function Registration() {
 
                 {/* Display error message if any */}
                 {errors && <div className="error">{errors}</div>}
+                {successMessage && <div className="success">{successMessage}</div>}
 
                 <div className="input-box">
                     <input 

@@ -11,7 +11,7 @@ const db = require('./models');
 
 // Routers- used to make index.js file much cleaner by compartmentalizing the requests.
 const userRouter = require('./routes/Users');
-const movieRouter = require('./routes/Movies');
+const movieRouter = require('./routes/Movie');
 const profileRouter = require('./routes/Profile');
 
 
