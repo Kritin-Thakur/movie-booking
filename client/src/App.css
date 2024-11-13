@@ -1,0 +1,53 @@
+/* Reset margin and padding for all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+/* App-level styles */
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100vh;
+}
+
+/* Navbar styling */
+.navbar {
+  display: flex;              /* Use flexbox */
+  justify-self: center;
+  justify-content: center;    /* Center the navbar items horizontally */
+  align-items: center;        /* Align items vertically */
+  background-color: none;     /* Dark background color */
+  color: white;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;                /* Ensure the navbar spans the entire width */
+  position: relative;         /* Prevent overlap if other content is added */
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;             /* Space between navbar items */
+  font-size: 16px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.navbar a.active {
+  font-weight: bold;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
