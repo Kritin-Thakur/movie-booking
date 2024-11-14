@@ -1,13 +1,15 @@
 module.exports = (sequelize, DataTypes) => {
     const Booking_Seat = sequelize.define("Booking_Seat", {
         BookingID: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             primaryKey: true,
         },
         SeatID: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             primaryKey: true,
         },
+    }, {
+        timestamps: false,  // Disable automatic createdAt and updatedAt fields
     });
 
     Booking_Seat.associate = (models) => {

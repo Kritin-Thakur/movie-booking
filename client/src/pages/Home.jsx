@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Home() {
     const [movies, setMovies] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
 
-    // Fetch movies from backend based on search term
     const fetchMovies = async (query = "") => {
         try {
             const response = await fetch(`http://localhost:3001/movies/search?query=${query}`);
@@ -15,15 +15,13 @@ function Home() {
         }
     };
 
-    // Fetch all movies on initial load
     useEffect(() => {
         fetchMovies();
     }, []);
 
-    // Handle search input change
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
-        fetchMovies(e.target.value); // Fetch movies based on search term
+        fetchMovies(e.target.value);
     };
 
     return (
@@ -37,12 +35,15 @@ function Home() {
             />
             <div className="movies-list">
                 {movies.map((movie) => (
-                    <div key={movie.MovieID} className="movie-card">
-                        <h2>{movie.Title}</h2>
-                        <p>Genre: {movie.Genre}</p>
-                        <p>Duration: {movie.Duration} minutes</p>
-                        {/* Add more movie details as needed */}
-                    </div>
+                    <Link 
+                        key={movie.MovieID} 
+                        to={`/movie/${movie.MovieID}`} 
+                        className="movie-card-link"
+                    >
+                        <div className="movie-card">
+                            <h2>{movie.Title}</h2>
+                        </div>
+                    </Link>
                 ))}
             </div>
         </div>

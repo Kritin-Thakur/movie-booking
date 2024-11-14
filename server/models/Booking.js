@@ -1,8 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
     const Booking = sequelize.define("Booking", {
         BookingID: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
         },
         BookingDate: {
             type: DataTypes.DATE,
@@ -16,11 +17,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DECIMAL,
             allowNull: false,
         },
+    }, {
+        timestamps: false,  // Disable automatic createdAt and updatedAt fields
     });
 
     Booking.associate = (models) => {
         Booking.belongsTo(models.User, {
-            foreignKey: "UserID",
+            foreignKey: "UserName",
         });
         Booking.belongsTo(models.Showtime, {
             foreignKey: "ShowtimeID",

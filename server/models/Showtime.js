@@ -1,8 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
     const Showtime = sequelize.define("Showtime", {
         ShowtimeID: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
         },
         StartTime: {
             type: DataTypes.DATE,
@@ -16,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATEONLY,
             allowNull: false,
         },
+    }, {
+        timestamps: false,  // Disable automatic createdAt and updatedAt fields
     });
 
     Showtime.associate = (models) => {

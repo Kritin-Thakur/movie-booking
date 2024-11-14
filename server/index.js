@@ -13,11 +13,16 @@ const db = require('./models');
 const userRouter = require('./routes/Users');
 const movieRouter = require('./routes/Movie');
 const profileRouter = require('./routes/Profile');
-
+const bookingsRouter = require('./routes/Bookings');
+const theatersRouter = require('./routes/Theaters');
+const showtimesRouter = require('./routes/Showtimes');
 
 app.use('/auth', userRouter); // app.use(path, callback (the functions in the routes files declared in the constants above))
 app.use('/movies', movieRouter);
 app.use('/profile', profileRouter);
+app.use('/bookings', bookingsRouter);
+app.use('/theaters', theatersRouter);
+app.use('/showtimes', showtimesRouter);
 
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {

@@ -21,11 +21,17 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        isAdmin: {  // New field to mark admins
+            type: DataTypes.BOOLEAN,
+            defaultValue: false, // Default to false for regular users
+        }
+    }, {
+        timestamps: false,  // Disable automatic createdAt and updatedAt fields
     });
 
     User.associate = (models) => {
         User.hasMany(models.Booking, {
-            foreignKey: "UserID",
+            foreignKey: "UserName",
         });
     };
 

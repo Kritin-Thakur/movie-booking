@@ -5,6 +5,8 @@ import Registration from './pages/LoginRegister/RegistrationForm';
 import Login from './pages/LoginRegister/LoginForm';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
+import MovieDetail from './pages/MovieDetail';
+import CreateShowtime from './pages/CreateShowtime'; // Import the CreateShowtime component
 
 function LogoutLink({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -48,6 +50,8 @@ function App() {
             <>
               <Link to="/profile"> Profile </Link>
               <LogoutLink setIsLoggedIn={setIsLoggedIn} />
+              {/* Add link to create showtime (only visible to admins) */}
+              <Link to="/create-showtime">Create Showtime</Link>
             </>
           )}
         </div>
@@ -56,6 +60,10 @@ function App() {
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/movie/:movieId" element={<MovieDetail />} />
+          {/* Add the route for CreateShowtime */}
+          <Route path="/create-showtime" element={<CreateShowtime />} />
         </Routes>
       </div>
     </Router>

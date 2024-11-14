@@ -1,8 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
     const Movie = sequelize.define("Movie", {
         MovieID: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
         },
         Title: {
             type: DataTypes.STRING,
@@ -16,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+    }, {
+        timestamps: false,  // Disable automatic createdAt and updatedAt fields
     });
 
     Movie.associate = (models) => {
