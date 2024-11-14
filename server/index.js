@@ -1,15 +1,14 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-// Import dotenv to load the .env file
 require('dotenv').config();
 
-app.use(express.json()); // Allows us to parse the req and res body which are in json format
+app.use(express.json()); 
 app.use(cors());
 
-const db = require('./models');
+const database = require('./models'); // Sequelize for models and syncing
 
-// Routers- used to make index.js file much cleaner by compartmentalizing the requests.
+// Routers
 const userRouter = require('./routes/Users');
 const movieRouter = require('./routes/Movie');
 const profileRouter = require('./routes/Profile');
@@ -17,16 +16,16 @@ const bookingsRouter = require('./routes/Bookings');
 const theatersRouter = require('./routes/Theaters');
 const showtimesRouter = require('./routes/Showtimes');
 
-app.use('/auth', userRouter); // app.use(path, callback (the functions in the routes files declared in the constants above))
+app.use('/auth', userRouter);
 app.use('/movies', movieRouter);
 app.use('/profile', profileRouter);
 app.use('/bookings', bookingsRouter);
 app.use('/theaters', theatersRouter);
 app.use('/showtimes', showtimesRouter);
 
-db.sequelize.sync().then(() => {
+// Sync Sequelize models and start server
+database.sequelize.sync({ force: false }).then(() => {
     app.listen(3001, () => {
         console.log("Server started on port 3001");
     });
 });
-

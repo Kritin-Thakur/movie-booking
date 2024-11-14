@@ -11,7 +11,8 @@ function Registration() {
         email: '',
         phone: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        isAdmin: false // New state for isAdmin
     });
 
     // State to handle validation errors
@@ -23,13 +24,13 @@ function Registration() {
 
     // Handle form input changes
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type, checked } = e.target;
         setFormData(prevState => ({
             ...prevState,
-            [name]: value
+            [name]: type === 'checkbox' ? checked : value
         }));
     };
-
+    
     // Validate form inputs
     const validateForm = () => {
         if (formData.password !== formData.confirmPassword) {
@@ -47,13 +48,14 @@ function Registration() {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         // Validate the form before sending the data
         if (!validateForm()) return;
-
+    
+    
         // Send the POST request to the backend API
         try {
-            const response = await fetch('http://localhost:3001/auth', {
+            const response = await fetch('http://localhost:3001/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -63,23 +65,21 @@ function Registration() {
                     Name: formData.name,
                     Email: formData.email,
                     Phone: formData.phone,
-                    Password: formData.password
+                    Password: formData.password,
+                    isAdmin: formData.isAdmin // Send isAdmin to backend
                 })
             });
-
+    
             const data = await response.json();
-
+    
             if (response.ok) {
-                // Handle successful registration (e.g., redirect or display success message)
                 console.log('User registered successfully:', data);
                 setSuccessMessage('Registration successful! Please log in.');
                 setErrors('');  // Clear any previous errors
                 setTimeout(() => {
-                    // After 3 seconds, redirect to login page
-                    navigate('/login');
+                    navigate('/login'); // Redirect to login after 1.5 seconds
                 }, 1500);
             } else {
-                // Handle error response from the server
                 console.error('Error during registration:', data);
                 setErrors(data.error || 'Registration failed. Please try again.');
                 setSuccessMessage('');  // Clear success message if registration fails
@@ -90,7 +90,7 @@ function Registration() {
             setSuccessMessage('');  // Clear success message if there is an error
         }
     };
-
+    
     return (
         <div className="wrapper">
             <form onSubmit={handleSubmit}>
@@ -166,6 +166,19 @@ function Registration() {
                     />
                 </div>
 
+                {/* Checkbox for isAdmin */}
+                <div className="checkbox">
+                    <input 
+                        type="checkbox" 
+                        id="isAdmin" 
+                        name="isAdmin"
+                        checked={formData.isAdmin}  // Make sure it's tied to formData.isAdmin
+                        onChange={handleInputChange} // Handle change event
+                    />
+                    <label htmlFor="isAdmin">Register as Admin</label>
+                </div>
+
+
                 <button type="submit">Register</button>
             </form>
         </div>
@@ -173,5 +186,3 @@ function Registration() {
 }
 
 export default Registration;
-
-

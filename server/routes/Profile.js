@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User } = require('../models'); // Users is the model of the Users database
+const mysqlConnection = require('../mysql'); // Import the mysql2 connection
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
 // Route to get profile information
@@ -9,18 +9,23 @@ router.get("/", validateToken, async (req, res) => {
         // After validation, extract UserName from the token
         const { username } = req.user;
 
-        // Fetch the user details from the database
-        const user = await User.findOne({
-            where: { UserName: username },
-            attributes: ['UserName', 'Name', 'Email', 'Phone'] // Only fetch specific columns
+        // SQL query to fetch the user details
+        const query = 'SELECT UserName, Name, Email, Phone FROM Users WHERE UserName = ?';
+
+        mysqlConnection.query(query, [username], (err, results) => {
+            if (err) {
+                console.error("Error fetching profile:", err);
+                return res.status(500).json({ error: "An error occurred while fetching profile information" });
+            }
+
+            // If user is found
+            if (results.length === 0) {
+                return res.status(404).json({ error: "User not found" });
+            }
+
+            // Send the fetched user data as JSON
+            res.json(results[0]); // Since `results` is an array, return the first user
         });
-
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-
-        // Return the user data as JSON
-        res.json(user);
     } catch (err) {
         console.error("Error fetching profile:", err);
         res.status(500).json({ error: "An error occurred while fetching profile information" });
