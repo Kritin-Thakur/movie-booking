@@ -10,7 +10,7 @@ router.get("/", validateToken, async (req, res) => {
         const { username } = req.user;
 
         // SQL query to fetch the user details
-        const query = 'SELECT UserName, Name, Email, Phone FROM Users WHERE UserName = ?';
+        const query = 'SELECT UserName, Name, Email, Phone, isAdmin FROM Users WHERE UserName = ?';
 
         mysqlConnection.query(query, [username], (err, results) => {
             if (err) {

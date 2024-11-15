@@ -83,6 +83,10 @@ function Profile() {
         }
     };
 
+    const handleShowBookings = () => {
+        navigate('/bookings');  // Navigate to the bookings page
+    };
+
     if (!isLoggedIn) {
         return (
             <div className="profile-wrapper">
@@ -132,6 +136,9 @@ function Profile() {
                         {message && <div className="success">{message}</div>}
                         <button type="submit">Update Password</button>
                     </form>
+
+                    {/* Show Bookings Button */}
+                    <button onClick={handleShowBookings}>Show Bookings</button>
                 </div>
             ) : (
                 <p>Loading...</p>

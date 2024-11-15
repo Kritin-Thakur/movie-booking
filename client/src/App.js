@@ -6,19 +6,20 @@ import Login from './pages/LoginRegister/LoginForm';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
 import MovieDetail from './pages/MovieDetail';
-import CreateShowtime from './pages/CreateShowtime'; // Import the CreateShowtime component
-import CreateMovie from './pages/CreateMovie'; // Import the CreateMovie component
-import AddTheater from './pages/AddTheater'; // Import the CreateMovie component
+import CreateShowtime from './pages/CreateShowtime';
+import CreateMovie from './pages/CreateMovie';
+import AddTheater from './pages/AddTheater';
+import PaymentProcessing from './pages/PaymentProcessing';
+import UserBookings from './pages/UserBookings';
 
-
-function LogoutLink({ setIsLoggedIn }) {
+function LogoutLink({ setIsLoggedIn, setIsAdmin }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Remove accessToken from sessionStorage to log the user out
     sessionStorage.removeItem('accessToken');
     setIsLoggedIn(false);
-    navigate('/login');  // Redirect to login page after logout
+    setIsAdmin(false);
+    navigate('/login');
   };
 
   return (
@@ -28,49 +29,88 @@ function LogoutLink({ setIsLoggedIn }) {
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true); 
 
-  // Check for accessToken in sessionStorage
   useEffect(() => {
     const token = sessionStorage.getItem('accessToken');
     if (token) {
       setIsLoggedIn(true);
+
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch('http://localhost:3001/profile', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'accessToken': token
+            }
+          });
+          const data = await response.json();
+          if (data && data.isAdmin !== undefined) {
+            setIsAdmin(data.isAdmin);
+          }
+        } catch (err) {
+          console.error("Error fetching user data:", err);
+        } finally {
+          setLoading(false); 
+        }
+      };
+
+      fetchUserData();
     } else {
       setIsLoggedIn(false);
+      setIsAdmin(false);
+      setLoading(false); 
     }
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; 
+  }
 
   return (
     <Router>
       <div className="App">
         <div className="navbar">
-          <Link to="/home"> Home Page </Link>
+          <Link to="/home">Home Page</Link>
           {!isLoggedIn ? (
             <>
-              <Link to="/register"> Register </Link>
-              <Link to="/login"> Login </Link>
+              <Link to="/register">Register</Link>
+              <Link to="/login">Login</Link>
             </>
           ) : (
             <>
-              <Link to="/profile"> Profile </Link>
-              <LogoutLink setIsLoggedIn={setIsLoggedIn} />
-              {/* Add link to create showtime (only visible to admins) */}
-              <Link to="/create-showtime">Create Showtime</Link>
-              <Link to="/create-movie">Create Movie</Link>
-              <Link to="/add-theater">Add Theater</Link>
+              <Link to="/profile">Profile</Link>
+              <LogoutLink setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />
+              {isAdmin ? (
+                <>
+                  <Link to="/create-showtime">Create Showtime</Link>
+                  <Link to="/create-movie">Create Movie</Link>
+                  <Link to="/add-theater">Add Theater</Link>
+                </>
+              ) : (
+              <>
+                  
+              </>
+            )}
+
+
             </>
           )}
         </div>
         <Routes>
           <Route path="/register" element={<Registration />} />
-          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path="/movie/:movieId" element={<MovieDetail />} />
-          {/* Add the route for CreateShowtime */}
           <Route path="/create-showtime" element={<CreateShowtime />} />
           <Route path="/create-movie" element={<CreateMovie />} />
           <Route path="/add-theater" element={<AddTheater />} />
+          <Route path="/payment-processing/:bookingID" element={<PaymentProcessing />} />
+          <Route path="/bookings" element={<UserBookings />} />
         </Routes>
       </div>
     </Router>

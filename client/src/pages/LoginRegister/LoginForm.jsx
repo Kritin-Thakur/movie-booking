@@ -3,20 +3,14 @@ import './styles.css';
 import { FaUser, FaLock } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
-function Login({ setIsLoggedIn }) {
-    // State to store the form data
+function Login({ setIsLoggedIn, setIsAdmin }) {  // Add setIsAdmin prop
     const [formData, setFormData] = useState({
         username: '',
         password: ''
     });
-
-    // State to handle any errors
     const [error, setError] = useState('');
-
-    // Use navigate hook for redirecting
     const navigate = useNavigate();
 
-    // Handle input changes and update form data
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -25,19 +19,17 @@ function Login({ setIsLoggedIn }) {
         }));
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Basic form validation
         if (!formData.username || !formData.password) {
             setError('Both fields are required.');
             return;
         }
 
-        // Send the POST request to the backend API
         try {
-            const response = await fetch('http://localhost:3001/auth/login', {
+            // Login request
+            const loginResponse = await fetch('http://localhost:3001/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -48,22 +40,31 @@ function Login({ setIsLoggedIn }) {
                 })
             });
 
-            // Parse the response data
-            const data = await response.json();
+            const loginData = await loginResponse.json();
             
-            if (response.status === 200 && data.accessToken) {
-                // Successful login
-                console.log('Login successful:', data.accessToken);
-                sessionStorage.setItem("accessToken", data.accessToken);
+            if (loginResponse.status === 200 && loginData.accessToken) {
+                sessionStorage.setItem("accessToken", loginData.accessToken);
                 
-                // Update the isLoggedIn state and navigate to the profile page
-                setIsLoggedIn(true);  // Update the navbar state
+                // Immediately fetch user profile to check admin status
+                const profileResponse = await fetch('http://localhost:3001/profile', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'accessToken': loginData.accessToken
+                    }
+                });
+                
+                const profileData = await profileResponse.json();
+                
+                // Store admin status and update states
+                sessionStorage.setItem('isAdmin', profileData.isAdmin);
+                setIsAdmin(profileData.isAdmin);
+                setIsLoggedIn(true);
+                
                 navigate('/profile');
             } else {
-                // If login failed (invalid username/password)
-                console.error('Login failed:', data);
-                setError(data.error || 'Login failed. Please try again.');
-                // Do not redirect, and do not write anything to sessionStorage
+                console.error('Login failed:', loginData);
+                setError(loginData.error || 'Login failed. Please try again.');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -76,7 +77,6 @@ function Login({ setIsLoggedIn }) {
             <form onSubmit={handleSubmit}>
                 <h1>Login</h1>
 
-                {/* Show error message if there's an error */}
                 {error && <div className="error">{error}</div>}
 
                 <div className="input-box">
