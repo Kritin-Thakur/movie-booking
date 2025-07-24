@@ -6,104 +6,350 @@
 }
   
 
+/* Center the wrapper and form */
 .wrapper {
-    width: 420px;    
-    background: slateblue;
-    color: white;
-    border-radius: 10px;
-    padding: 30px 40px;
-
-}
-
-.wrapper h1 {
-    font-size: 36px;
-    text-align: center;   
-}
-
-.wrapper .input-box {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 30px 0;
-
-}
-
-.input-box input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 40px;
-    font-size: 16px;
-    color: #fff;
-    padding: 20px 45px 20px 20px;
-}
-
-.input-box input::placeholder {
-    color: #fff;
-
-}
-
-.input-box .icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-}
-
-.wrapper .remember-forgot {
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    background: url('https://imgs.search.brave.com/G-lla8D3Tq0sn51NdNxU7JWaNVUyDVji3uK5igB5sU8/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9nZXR3/YWxscGFwZXJzLmNv/bS93YWxscGFwZXIv/ZnVsbC9mL2IvZC8y/OTU3MjguanBn') no-repeat center center fixed;
+    background-size: cover; /* Make sure the background covers the entire screen*/
+  }
+  
+  form {
     display: flex;
-    justify-content:  space-between;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
-}
-
-.remember-forgot label input {
-    accent-color: #fff;
-    margin-right: 4px;
-
-}
-
-.remember-forgot a {
-    color: #fff;
-    text-decoration: none;
-
-}
-
-.remember-forgot a.hover {
-    text-decoration: underline;
-}
-
-.wrapper button {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* White background for the form */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow around the form */
     width: 100%;
-    height: 45px;
-    background: #fff;
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0,.1);
-    cursor: pointer;
+    max-width: 400px; /* Limit the form width */
+  }
+  
+  /* Error and success messages */
+  .error, .success {
+    color: red; /* Error color */
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .success {
+    color: green; /* Success color */
+  }
+  
+  /* Input styles */
+  .input-box {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .input-box input {
+    width: 100%;
+    padding: 10px;
     font-size: 16px;
-    color: #333;
-    font-weight: 700;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .checkbox {
+    margin: 15px 0;
+  }
+  
+  .checkbox input {
+    margin-right: 10px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007BFF; /* Blue button */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+/* General profile wrapper styles */
+.profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: url('https://media.istockphoto.com/id/1457378613/photo/female-detective-looking-attentively-at-investigation-board-back-view.jpg?s=612x612&w=0&k=20&c=e6HvblMTNPa7CWoBnZGmOZDkuHvFYMxItjT1Y3Kcv3k=') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;  /* White text to stand out against the background */
+    padding: 20px;
+    font-family: Arial, sans-serif;
 }
 
-.wrapper .register-link {
-    font-size: 14.5px;
+/* Profile details section */
+.profile-details {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;  /* Limit width for better responsiveness */
+    max-width: 600px; /* Max width to prevent large screens from stretching too much */
+    box-sizing: border-box;
     text-align: center;
+}
+
+/* Profile header */
+.profile-details h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Profile text */
+.profile-details p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* Update password form styles */
+.profile-details form {
+    margin-left: 50px;  /* Move form to the right */
+    width: fit-content;  /* Makes the form width adjust to its content */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px; /* Adds space between form fields */
     margin-top: 20px;
 }
 
-.register-link p a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
+.profile-details form div {
+    width: 100%;  /* Ensure full width for inputs */
 }
 
+.profile-details form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;  /* Make the inputs span the available space */
+    box-sizing: border-box;  /* Ensure padding doesn't affect the width */
+}
 
-.register-ilnk p a:hover {
-    text-decoration: underline;
+.profile-details form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;  /* Make the button span the width of the form */
+    margin-top: 10px;
+}
 
+.profile-details form button:hover {
+    background-color: #0056b3;
+}
+
+/* Error and success messages */
+.profile-details .error {
+    color: #ff4d4d;
+    margin-top: 10px;
+}
+
+.profile-details .success {
+    color: #28a745;
+    margin-top: 10px;
+}
+
+/* Button to show bookings */
+.profile-details button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.profile-details button:hover {
+    background-color: #218838;
+}
+
+/* Main wrapper for the form */
+.add-movie-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: url('https://imgs.search.brave.com/Bvh93vUpVqm_LE0UVMV1VGx9saRdq-C5IIeOk0k7bqk/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuYmF1ZXJob3N0/aW5nLmNvbS9sZWdh/Y3kvbWVkaWEvNjE5/ZC9hYzAyL2RiZWUv/YWY2My8zMzY5LzAw/NWIvMzQlMjB0d28l/MjB0b3dlcnMuanBn/P2F1dG89Zm9ybWF0/Jnc9MTQ0MCZxPTgw') no-repeat center center fixed;
+    background-size: cover;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #fff; /* Text color for better contrast with background */
+}
+
+/* Form container */
+.add-movie-form {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px; /* Limit width on larger screens */
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Form header */
+.add-movie-form h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Form labels and inputs */
+.add-movie-form label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    text-align: left; /* Align labels to the left */
+}
+
+.add-movie-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* Submit button */
+.add-movie-form button {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-movie-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Status message */
+.add-movie-form p {
+    margin-top: 15px;
+    font-size: 1rem;
+}
+
+/* Success and error message colors */
+.add-movie-form p.success {
+    color: #28a745;
+}
+
+.add-movie-form p.error {
+    color: #ff4d4d;
+}
+
+/* Main wrapper for the bookings page */
+.bookings-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f8f9fa; /* Light gray background */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Page title */
+.bookings-wrapper h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Error message */
+.error {
+    color: #ff4d4d;
+    background-color: #ffe6e6;
+    border: 1px solid #ff4d4d;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+/* Bookings table */
+.bookings-table {
+    width: 90%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table header */
+.bookings-table th {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* Table rows */
+.bookings-table td {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* Alternating row colors */
+.bookings-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.bookings-table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Table border */
+.bookings-table th, 
+.bookings-table td {
+    border: 1px solid #ddd;
+}
+
+/* Highlight row on hover */
+.bookings-table tr:hover {
+    background-color: #e6f7ff;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .bookings-table th, 
+    .bookings-table td {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+    .bookings-wrapper h1 {
+        font-size: 1.5rem;
+    }
 }

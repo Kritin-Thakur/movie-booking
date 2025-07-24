@@ -4,7 +4,7 @@ const mysql = require('mysql2');
 const mysqlConnection = mysql.createConnection({
     host: process.env.DB_HOST || 'localhost',   // Database host (localhost by default)
     user: process.env.DB_USER || 'root',        // Database user
-    password: process.env.DB_PASSWORD || 'kritin',    // Database password
+    password: process.env.DB_PASSWORD || 'wordpass',    // Database password
     database: process.env.DB_NAME || 'movie_booking_system',  // Database name
     port: process.env.DB_PORT || 3306          // Port (3306 is default for MySQL)
 });

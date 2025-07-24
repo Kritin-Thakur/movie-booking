@@ -7,7 +7,7 @@
 }
 
 
-body {
+/* body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -15,7 +15,19 @@ body {
   display: flex;
   min-height: 100vh;
   background: seagreen;
+} */
+/* index.css */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;  /* Ensure the page's layout follows a column direction */
+  min-height: 100vh;       /* Ensures the page fills the full viewport height */
+  background: seagreen;    /* You can adjust this as needed */
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

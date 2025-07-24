@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 function AddMovie() {
     const [Title, setTitle] = useState('');
     const [Genre, setGenre] = useState('');
@@ -9,7 +10,6 @@ function AddMovie() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Ensure duration is a valid integer
         const movieDuration = parseInt(Duration, 10);
         if (isNaN(movieDuration)) {
             setStatus('Duration must be a valid integer.');
@@ -21,8 +21,6 @@ function AddMovie() {
             Genre,
             Duration: movieDuration,
         };
-
-        console.log("Data being sent to backend:", dataToSend); // Log the JSON data
 
         try {
             const response = await fetch('http://localhost:3001/movies/addmovie', {
@@ -43,15 +41,15 @@ function AddMovie() {
                 setStatus(data.error || 'Failed to create movie');
             }
         } catch (error) {
-            console.error("Error creating movie:", error);
             setStatus('Error creating movie');
         }
     };
 
     return (
-        <div>
-            <h1>Add New Movie</h1>
-            <form onSubmit={handleSubmit}>
+        <div className="add-movie-wrapper">
+            <form className="add-movie-form" onSubmit={handleSubmit}>
+                <h1>Add New Movie</h1>
+
                 <div>
                     <label>Title:</label>
                     <input
@@ -83,9 +81,13 @@ function AddMovie() {
                 </div>
 
                 <button type="submit">Create Movie</button>
-            </form>
 
-            {status && <p>{status}</p>}
+                {status && (
+                    <p className={status.includes('success') ? 'success' : 'error'}>
+                        {status}
+                    </p>
+                )}
+            </form>
         </div>
     );
 }

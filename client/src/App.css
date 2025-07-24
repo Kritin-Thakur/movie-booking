@@ -4,8 +4,66 @@
   padding: 0;
   box-sizing: border-box;
 }
+/* Link to Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap'); /* Import any font you like */
 
+/* WelcomePage.css */
 
+/* Apply background styling */
+.welcome-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://wallpapers.com/images/featured-full/movie-9pvmdtvz4cb0xl37.jpg'); /* Set background image */
+  background-size: cover;
+  background-position: center;
+}
+
+/* Target content box */
+.welcome-page .centered-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8); /* Optional translucent background */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.welcome-page .content-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-page .welcome-title {
+  font-size: 10rem;
+  font-weight: bold;
+  margin: 0;
+  font-family: 'Times New Roman', sans-serif; /* Customize the font family */
+}
+
+.welcome-page .welcome-subtitle {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.welcome-page .login-button {
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.welcome-page .login-button:hover {
+  background-color: #666;
+}
 
 /* App-level styles */
 .App {
@@ -16,18 +74,18 @@
 }
 
 /* Navbar styling */
+/* index.css or App.css */
 .navbar {
-  display: flex;              /* Use flexbox */
-  justify-self: center;
-  justify-content: center;    /* Center the navbar items horizontally */
-  align-items: center;        /* Align items vertically */
-  background-color: none;     /* Dark background color */
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  background-color: #333;
   color: white;
-  padding: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;                /* Ensure the navbar spans the entire width */
-  position: relative;         /* Prevent overlap if other content is added */
+  position: sticky;
+  top: 0;
+  width: 100%;
 }
+
 
 .navbar a {
   color: white;
@@ -50,4 +108,70 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+/* App.css */
+
+/* App.css or Home.css */
+.home {
+  background: url('https://imgs.search.brave.com/fRWH0AwaFnWO70Qh0E8zS-7pDAVJ21d6lDUF_xDo6qk/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9zaG90/a2l0LmNvbS93cC1j/b250ZW50L3VwbG9h/ZHMvYmItcGx1Z2lu/L2NhY2hlL3Nob3Rr/aXQtZmlsbS1zdG9j/ay0wMDEtbGFuZHNj/YXBlLThmZTZjYTJi/ZDc2NDI5NDc1OWFm/NzczYmEyMzE4OGFk/LXp5YnJhdmd4MnE0/Ny5qcGc') no-repeat center center fixed;
+  background-size: cover;
+  padding: 20px;
+  font-size: 3rem;
+  color: yellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  min-height: 100vh; /* Ensure the background covers the entire viewport height */
+  font-family: 'Times New Roman', Times, serif;
+
+}
+
+
+.movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* App.css or Home.css */
+.movie-card {
+  width: 300px; /* Increase the width of the movie card */
+  height: 400px; /* Increase the height of the card */
+  padding: 20px; /* Add padding inside the card for spacing */
+  margin: 10px; /* Add margin between movie cards */
+  background-color: #fff; /* Set background color */
+  border-radius: 10px; /* Round the corners for a smoother look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow for better separation */
+  display: flex; /* Ensure flexbox is used for alignment */
+  flex-direction: column; /* Arrange the content vertically */
+  justify-content: space-between; /* Distribute space between elements */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for hover effect */
+}
+
+.movie-card h2 {
+  font-size: 20px; /* Increase the font size for the title */
+  margin-bottom: 15px; /* Space between title and other content */
+}
+
+.movie-card:hover {
+  transform: scale(1.05); /* Slightly increase the size on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+
+.search-input {
+  width: 300px; 
+  height: 40px;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }

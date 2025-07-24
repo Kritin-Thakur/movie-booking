@@ -57,8 +57,6 @@ function Login({ setIsLoggedIn, setIsAdmin }) {  // Add setIsAdmin prop
                 const profileData = await profileResponse.json();
                 
                 // Store admin status and update states
-                sessionStorage.setItem('isAdmin', profileData.isAdmin);
-                setIsAdmin(profileData.isAdmin);
                 setIsLoggedIn(true);
                 
                 navigate('/profile');
