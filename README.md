@@ -87,11 +87,8 @@ Stored Procedures & Functions:
 - `GetUserBookings(userName)`
 - `GetBookingDetails(bookingID)` → returns JSON
 
-##🎮 Usage
-Register as a user
-Browse and search movies
-Select showtime and seats
-Book and pay
-View/cancel your bookings
-Admin login to manage entities
+## 👥 Contributors
+
+- **Ishan Kumar** – [@IshankumarP](https://github.com/IshankumarP)  
+- **Kritin Thakur** – [@Kritin-Thakur](https://github.com/Kritin-Thakur)
 
